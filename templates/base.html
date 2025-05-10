@@ -8,9 +8,9 @@
   <link rel="icon" href="{% static 'favicon.ico' %}">
   <link href="{% static 'dist/style.css' %}" rel="stylesheet">
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class=" bg-emerald-100 text-gray-800 font-sans">
 
-
+{% include "nav.html" %}
   <!-- Main Content -->
   <main class="container mx-auto px-4 py-10">
     {% block content %}
@@ -18,7 +18,7 @@
   </main>
 
     <!-- Footer -->
-    <footer  class="bg-best rounded-2xl shadow-lg  ring-1 ring-green-50 fixed bottom-0 mx-auto w-full">
+    <footer  class="bg-emerald-200 rounded-2xl shadow-lg  ring-1 ring-green-50 fixed bottom-0 mx-auto w-full">
       <div class="container mx-auto px-4 py-6 text-center text-2xl text-violet-500 ">
         &copy; 2025 DevSearch. All rights reserved.
       </div>
