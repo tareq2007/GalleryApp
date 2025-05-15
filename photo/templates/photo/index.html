@@ -4,30 +4,73 @@
 
 
 
-<div class="bg-emerald-200 shadow-md rounded-lg p-6 mb-6">
-<h1 class="text-center text-violet-600  font-lobster text-3xl" >Welcome to My Gallery!</h1>
+<div class="bg-emerald-300 shadow-md rounded-lg p-6 mb-6">
+{% comment %} <h1 class="text-center text-violet-600  font-lobster text-3xl" >Welcome to My Gallery!</h1>
+
+<div class="grid  grid-cols-4 gap-4">
+
+  <div class="row-span-6">
+<div class="card " style="width: 18rem;">
+
+  <ul class="list-group list-group-flush">
+    {% for c in categories %}
+    <li class="list-group-item">{{c.name}}</li>
+    {% endfor %}
+  </ul>
+</div>
+  </div>
+{% for photo in photos %}
+<div class="grid grid-cols-4 gap-4">
+
+  <div class="grid   ">
+    <img src="{{ photo.image.url }}" class="duration-700 hover:shadow-2xl hover:scale-110 rounded-xl shadow-2xl w-full h-full object-cover size-96" />
+    <h5>Category: Nature</h5>
+  </div>
+</div>
+{% endfor %}
+
+</div> {% endcomment %}
 
 
 
+<div class="grid grid-cols-2 gap-4 mt-10 md:grid-cols-[30%_auto] ">
 
-<div class="grid grid-flow-col grid-rows-3 gap-4 ">
-  <section class="container mx-auto scroll-smooth">
-    <div class="text-center  my-20 "> 
-      <div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 card w-full bg-best  rounded-2xl shadow-lg p-5 text-center ring-1 ring-green-50"> 
-        
-        <img src="https://media.istockphoto.com/id/2165337331/photo/portrait-of-tabby-cat.jpg?s=1024x1024&w=is&k=20&c=2Z-6G-3InjCOGgi82NEHOZ_K21Cqjt0Ej2W5xeGYZBo=" class=" duration-700  hover:shadow-2xl  hover:scale-110  rounded-xl shadow-2xl w-full h-100 object-cover " />
-        <img src="{% static 'images/p (1).jpg' %}" class=" duration-700  hover:shadow-2xl  hover:scale-110   rounded-xl shadow-2xl w-full h-100 object-cover" />
-        <img src="{% static 'images/p (2).jpg' %}" class=" duration-700  hover:shadow-2xl  hover:scale-110  rounded-xl shadow-2xl w-full h-100 object-cover" />
-        <img src="{% static 'images/p (3).jpg' %}" class=" duration-700  hover:shadow-2xl  hover:scale-110   rounded-xl shadow-2xl w-full h-100 object-cover" />
-        <img src="{% static 'images/p (6).jpg' %}" class=" duration-700  hover:shadow-2xl ring-1 ring-amber-50 hover:scale-110   rounded-xl shadow-2xl w-full h-100 object-fill object-center " />
-        
-      </div>
-      
-      
-    </div>
-  </section> 
+
+  <div class=" bg-emerald-200  shadow-lg text-center ring-1 ring-green-50 rounded-2xl">   
+     <ul class=" list-group list-group-flush cursor-pointer  shadow-lg text-center ring-1 ring-green-50">
+    <li class="list-group-item ">All </li>
+    {% for c in categories %}
+    <li class="list-group-item ">{{c.name}}</li>
+    {% endfor %}
+  <a class="font-bold" href="{% url 'add' %}">Add</a>
+
+  </ul></div>
+  
+
+  <div class="grid grid-cols-4 gap-2">  
+    
+    {% for photo in photos %}
+  <div class=" relative  bg-best rounded-2xl shadow-lg text-center ring-1 ring-green-50">
+   <a href="{% url 'viewPhoto' photo.id %}"> <img src="{{ photo.image.url }}" class="duration-700 hover:shadow-2xl hover:scale-110 rounded-xl shadow-2xl size-full object-fill " /></a>
+    <h5 class=" opacity-75 absolute bottom-0 left-0 text-center text-white font-mono font-extrabold ">Category:{{ photo.category.name }}</h5>
+  </div>
+  {% endfor %}
+</div>
+
 
 </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
 
 
 
