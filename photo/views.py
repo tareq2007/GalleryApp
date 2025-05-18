@@ -51,10 +51,4 @@ def deletePhoto(request,pk):
     context = {'photo': photo}
     return render(request, 'photo/delete.html',context)
 
-def delete_category(request, pk):
-    category = get_object_or_404(Category, id=pk)
-    Photo.objects.filter(category=category).delete()
-    category.delete()
-    context = {'category': category}
-     
-    return render(request, 'photo/delete_c.html', context)    
+
