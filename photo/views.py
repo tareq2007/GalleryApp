@@ -1,10 +1,15 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect ,get_object_or_404
 from .models import Photo, Category
-from .forms import PhotoForm
 
 def index(request):
-    photos = Photo.objects.all()
     categories = Category.objects.all()
+    category = request.GET.get('category')
+    
+    if category == None:
+        photos = Photo.objects.all()
+    else:
+        photos = Photo.objects.filter(category__name=category)
+    
     context = {'photos': photos,'categories': categories }
     return render(request, 'photo/index.html',context)
 
@@ -17,11 +22,24 @@ def viewPhoto(request,pk):
 
 
 def addPhoto(request):
-    form = PhotoForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        form.save()
+    categories = Category.objects.all()
+    if request.method == "POST":
+        data = request.POST
+        images = request.FILES.getlist('images')
+        if data['category'] != 'none':
+            category = Category.objects.get(id=data['category'])
+        elif data['new_category'] != '':
+            category, created = Category.objects.get_or_create(name=data['new_category'])
+        else:
+            category = None
+        for image in images:
+            photo = Photo.objects.create(
+                description=data['description'],
+                image=image,
+                category=category
+            )
         return redirect('index')
-    context = {'form': form}
+    context = {'categories': categories }
     return render(request, 'photo/add.html',context)
 
 
@@ -32,3 +50,11 @@ def deletePhoto(request,pk):
         return redirect('index')
     context = {'photo': photo}
     return render(request, 'photo/delete.html',context)
+
+def delete_category(request, pk):
+    category = get_object_or_404(Category, id=pk)
+    Photo.objects.filter(category=category).delete()
+    category.delete()
+    context = {'category': category}
+     
+    return render(request, 'photo/delete_c.html', context)    

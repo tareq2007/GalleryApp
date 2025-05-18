@@ -2,20 +2,39 @@
 {% load static %}
 {% block content %}
 
-<div class="bg-emerald-100 shadow-md rounded-lg p-6 mb-6 container mx-auto ">
+<div class=" shadow-md rounded-lg p-6 mb-6 container mx-auto ">
     
     
-    <a href="{% url 'index' %}" class="inline-flex items-center px-3 py-2 text-sm font-extrabold text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-        Back to Gallery
-        <svg aria-hidden="true" class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M10.293 15.293a1 1 0 01-.083 1.32l-.094.083L4.586 10l5.61-6.586a1 1 0 011.497 1.32L7.414 9H16a1 1 0 01.117 1.993L16 11H7.414l2.879 3.293z" clip-rule="evenodd"></path>
-        </svg>
-    </a>
-    <h1 class="text-2xl font-bold text-gray-800">Add a New Photo</h1>
+    <a href="{% url 'index' %}" class="inline-flex items-center rounded bg-emerald-200 px-3 py-2  font-extrabold text-center">
+        Back to Gallery</a>
+
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button class="py-2 px-4 max-w-md flex justify-center items-center bg-emerald-500 rounded-2xl" type="submit" >Add Photo</button>    
+        <div class=" form-group mb-3">
+            <label >Description</label>
+            <input class="form-control" type="text" name="description" placeholder="Enter a description">
+          </div>
+
+          <div class=" form-group mb-3">
+            <label >Select a category</label>
+            <select class="form-control"  name="category"> 
+                <option value="none">Select a Category...</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            <select>
+          </div>
+
+          <div class=" form-group mb-3">
+            <label >Add New Category</label>
+            <input class="form-control" type="text" name="new_category" placeholder="Add New Category...">
+          </div>
+
+        <div class=" form-group mb-3">
+            <label >Upload image</label>
+            <input class="form-control" type="file" multiple name="images" required>
+          </div>
+        <button class="py-2 px-4 max-w-md flex justify-center items-center text-emerald-400 bg-emerald-200 font-extrabold rounded " type="submit" >Add Photo</button>    
         
         
         

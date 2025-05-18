@@ -4,7 +4,8 @@
 
 
 
-<div class="bg-emerald-300 shadow-md rounded-lg p-6 mb-6">
+
+<div class="bg-emerald-50 shadow-md rounded-lg p-6 mb-6">
 {% comment %} <h1 class="text-center text-violet-600  font-lobster text-3xl" >Welcome to My Gallery!</h1>
 
 <div class="grid  grid-cols-4 gap-4">
@@ -36,15 +37,27 @@
 <div class="grid grid-cols-2 gap-4 mt-10 md:grid-cols-[30%_auto] ">
 
 
-  <div class=" bg-emerald-200  shadow-lg text-center ring-1 ring-green-50 rounded-2xl">   
-     <ul class=" list-group list-group-flush cursor-pointer  shadow-lg text-center ring-1 ring-green-50">
-    <li class="list-group-item ">All </li>
-    {% for c in categories %}
-    <li class="list-group-item ">{{c.name}}</li>
-    {% endfor %}
-  <a class="font-bold" href="{% url 'add' %}">Add</a>
-
-  </ul></div>
+  <div class="bg-emerald-100 shadow-lg text-center ring-1 ring-green-50 rounded-2xl">   
+    <ul class="list-group list-group-flush cursor-pointer shadow-lg text-center ring-1 ring-green-50">
+  
+      <li class="list-group-item flex justify-between items-center px-4">
+        <a href="{% url 'index' %}">All</a>
+      </li>
+  
+      {% for c in categories %}
+      <li class="list-group-item flex justify-between items-center px-4">
+        <a href="{% url 'index' %}?category={{ c.name }}">{{ c.name }}</a>
+        <a href="{% url 'delete-category' c.id %}" >X</a>
+      </li>
+      {% endfor %}
+  
+      <li class="list-group-item">
+        <a class="font-bold" href="{% url 'add' %}">Add</a>
+      </li>
+  
+    </ul>
+  </div>
+  
   
 
   <div class="grid grid-cols-4 gap-2">  
